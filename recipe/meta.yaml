@@ -1,5 +1,5 @@
 {% set name = "jupyterlab_latex" %}
-{% set version = "2.0.0" %}
+{% set version = "3.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 722558144e6ce71abe4fba0fb01c13c37271fa2497881bfebe9b6422d1fc795b
+  sha256: e5555725d432f30725140746cb8ddb2d57d404f07c8e741ff18256183af993b9
 
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
@@ -31,7 +31,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: 'JupyterLab extension for live editing of LaTeX documents'
+  summary: JupyterLab extension for live editing of LaTeX documents
 
   description: |
     An extension for JupyterLab which allows for live-editing of LaTeX 
