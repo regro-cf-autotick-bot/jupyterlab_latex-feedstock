@@ -1,44 +1,56 @@
-{% set name = "jupyterlab_latex" %}
-{% set version = "3.0.0" %}
+{% set version = "3.1.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: jupyterlab_latex
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e5555725d432f30725140746cb8ddb2d57d404f07c8e741ff18256183af993b9
+  - url: https://pypi.io/packages/source/j/jupyterlab_latex/jupyterlab_latex-{{ version }}.tar.gz
+    sha256: f44df285405b5b552b70d10f1f0573d61ca3a4d2ca50bd3097a63a27cdcde16e
+  - url: https://raw.githubusercontent.com/jupyterlab/jupyterlab-latex/{{ version }}/LICENSE
+    sha256: bf187e29dbaa606292cc72428603aed9829a1999ee8243019f6e1cdfa2ac6f5d
 
 build:
   noarch: python
-  number: 1
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+  script: {{ PYTHON }} -m pip install -vv --install-option="--skip-npm" .
 
 requirements:
   host:
-    - python >=3.6
+    - jupyter-packaging >=0.10,<1
+    - jupyterlab >=3,<4
     - pip
-  run:
     - python >=3.6
-    - notebook
+  run:
+    - jupyter_server >=1.6,<2
+    - jupyterlab >=3,<4
+    - python >=3.6
 
 test:
   imports:
     - jupyterlab_latex
   commands:
     - pip check
-  requires: 
+    - jupyter labextension list
+    - jupyter labextension list 1>labextensions 2>&1
+    - cat labextensions | grep "@jupyterlab/latex.*v{{ version.replace(".", "\\.") }}.*OK"  # [unix]
+    - jupyter serverextension list
+    - jupyter serverextension list 1>serverextensions 2>&1
+    - cat serverextensions | grep "jupyterlab_latex.*{{ version.replace(".", "\\.") }}.*OK"  # [unix]
+    - jupyter server extension list
+    - jupyter server extension list 1>server_extensions 2>&1
+    - cat server_extensions | grep "jupyterlab_latex.*{{ version.replace(".", "\\.") }}.*OK"  # [unix]
+  requires:
     - pip
 
 about:
-  home: http://jupyter.org
+  home: https://github.com/jupyterlab/jupyterlab-latex
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: JupyterLab extension for live editing of LaTeX documents
-
   description: |
-    An extension for JupyterLab which allows for live-editing of LaTeX 
+    An extension for JupyterLab which allows for live-editing of LaTeX
     documents.
   doc_url: https://github.com/jupyterlab/jupyterlab-latex/blob/master/docs/advanced.md
   dev_url: https://github.com/jupyterlab/jupyterlab-latex
@@ -46,3 +58,4 @@ about:
 extra:
   recipe-maintainers:
     - jan-janssen
+    - bollwyvl
