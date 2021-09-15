@@ -1,7 +1,7 @@
 About jupyterlab_latex
 ======================
 
-Home: http://jupyter.org
+Home: https://github.com/jupyterlab/jupyterlab-latex
 
 Package license: BSD-3-Clause
 
@@ -123,5 +123,6 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@bollwyvl](https://github.com/bollwyvl/)
 * [@jan-janssen](https://github.com/jan-janssen/)
 
