@@ -1,5 +1,5 @@
 {% set name = "jupyterlab_latex" %}
-{% set version = "3.0.0" %}
+{% set version = "3.1.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e5555725d432f30725140746cb8ddb2d57d404f07c8e741ff18256183af993b9
+  sha256: f44df285405b5b552b70d10f1f0573d61ca3a4d2ca50bd3097a63a27cdcde16e
 
 build:
   noarch: python
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -27,7 +27,7 @@ test:
     - jupyterlab_latex
   commands:
     - pip check
-  requires: 
+  requires:
     - pip
 
 about:
